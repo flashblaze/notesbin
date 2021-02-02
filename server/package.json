@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon",
+    "dev": "env-cmd -f .env.development nodemon",
+    "migrate-latest": "env-cmd -f .env.development.local knex migrate:latest",
+    "migrate-create": "knex migrate:make create-notesbin",
+    "seed-create": "knex seed:make 01_notesbin",
+    "seed": "env-cmd -f .env.development.local knex seed:run",
     "lint": "eslint --fix .",
     "format": "prettier --write './**/*.{js,js,ts,ts,json}' --config ./.prettierrc"
   },
@@ -14,6 +18,8 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "knex": "^0.21.17",
     "pg": "^8.5.1"
