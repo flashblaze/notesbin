@@ -8,12 +8,12 @@ const Home = ({ passUuid }) => {
 
   const submitNote = (uuid) => {
     passUuid(uuid);
-    // axios.get("http://localhost:5001").then((res) => console.log(res.data));
-    axios
-      .post(`http://localhost:5001/note/${uuid}`, {
-        note: value,
-      })
-      .then((res) => console.log(res.data));
+    axios.get("http://localhost:5001").then((res) => console.log(res.data));
+    // axios
+    //   .post(`http://localhost:5001/note/${uuid}`, {
+    //     note: value,
+    //   })
+    //   .then((res) => console.log(res.data));
   };
 
   return (
