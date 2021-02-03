@@ -1,13 +1,19 @@
+import { useEffect, useState } from "react";
 import { Center } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-
+import axios from "axios";
+import { CircularProgress } from "@chakra-ui/react";
 const Post = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const [enteredNote, setEnteredNote] = useState("");
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5001${window.location.pathname}`)
+      .then((res) => setEnteredNote(res.data.note));
+  }, []);
 
   return (
     <Center>
-      <span>{id}</span>
+      <span>{enteredNote.length === 0 ? <CircularProgress /> : enteredNote}</span>
     </Center>
   );
 };
