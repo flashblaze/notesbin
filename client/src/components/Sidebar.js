@@ -8,20 +8,33 @@ import { useNoteStore, useUuidStore } from "../store/index";
 const Sidebar = () => {
   const router = useRouter();
   const { setUuid } = useUuidStore();
-  const { note } = useNoteStore();
+  const { note, setNote, setIsEditing } = useNoteStore();
   const toast = useToast();
+
+  const checkHash = () => {
+    return router.pathname.split("/")[1].length === 0;
+  };
 
   const handleSave = () => {
     const uuid = uuidv4();
-    if (window.location.pathname.split("/")[1].length === 0) {
-      axios
-        .post(`http://localhost:5001/note/${uuid}`, {
-          note,
-        })
-        .then(() => {
-          setUuid(uuid);
-          router.push(`/${uuid}`);
-        });
+    if (note.trim().length === 0) {
+      toast({
+        title: "Please enter a note",
+        status: "error",
+        duration: 2500,
+        isClosable: true,
+      });
+    } else {
+      if (checkHash) {
+        axios
+          .post(`http://localhost:5001/note/${uuid}`, {
+            note,
+          })
+          .then(() => {
+            setUuid(uuid);
+            router.push(`/${uuid}`);
+          });
+      }
     }
   };
 
@@ -44,6 +57,12 @@ const Sidebar = () => {
           isClosable: true,
         });
       });
+  };
+
+  const handleEditNote = () => {
+    setIsEditing(true);
+    setNote(note);
+    router.push("/");
   };
 
   return (
@@ -69,8 +88,19 @@ const Sidebar = () => {
         color="#9F9F9F"
         cursor="pointer"
         onClick={handleCopyLink}
+        disabled={checkHash()}
+        _disabled={{ opacity: 0.5 }}
       />
-      <Icon as={FiEdit} fontSize="3xl" mt="12" color="#9F9F9F" cursor="pointer" />
+      <Icon
+        as={FiEdit}
+        fontSize="3xl"
+        mt="12"
+        color="#9F9F9F"
+        cursor="pointer"
+        onClick={handleEditNote}
+        disabled={checkHash()}
+        _disabled={{ opacity: 0.5 }}
+      />
     </Box>
   );
 };

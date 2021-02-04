@@ -7,7 +7,7 @@ export const useUuidStore = create((set) => ({
 
 export const useNoteStore = create((set) => ({
   note: "",
-  editNote: "",
+  isEditing: false,
   setNote: (note) => set(() => ({ note })),
-  setEditPrevNote: (editNote) => set(() => ({ editNote })),
+  setIsEditing: (isEditing) => set(() => ({ isEditing })),
 }));

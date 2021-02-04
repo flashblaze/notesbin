@@ -7,11 +7,15 @@ import styles from "./index.module.css";
 const Home = () => {
   const [value, setValue] = useState("");
   const textArea = useRef();
-  const { setNote } = useNoteStore();
+  const { setNote, note, isEditing } = useNoteStore();
   const { setUuid } = useUuidStore();
 
   useEffect(() => {
-    setNote("");
+    if (isEditing) {
+      setValue(note);
+    } else {
+      setNote("");
+    }
     setUuid("");
     textArea.current.focus();
   }, []);
