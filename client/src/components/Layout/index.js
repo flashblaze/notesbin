@@ -2,6 +2,8 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 
+import Sidebar from "../Sidebar";
+
 const Layout = ({ children }) => {
   return (
     <Flex direction="column">
@@ -21,7 +23,7 @@ const Layout = ({ children }) => {
         </Link>
       </Box>
       <Flex>
-        {/* <Box w="100px" height="calc(100vh - 77px)" bg="#101010" /> */}
+        <Sidebar />
         <Box w="100%">{children}</Box>
       </Flex>
     </Flex>
