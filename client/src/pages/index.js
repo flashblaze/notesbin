@@ -1,12 +1,11 @@
-import { Center } from "@chakra-ui/react";
-
+import Layout from "../components/Layout";
 import Home from "../components/Home";
 
 const Index = () => {
   return (
-    <Center>
+    <Layout>
       <Home />
-    </Center>
+    </Layout>
   );
 };
 
