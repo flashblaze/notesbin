@@ -1,0 +1,11 @@
+.textArea {
+    color:#FFFFFF;
+    height: 91vh !important;
+    resize: none;
+    border: none !important;
+}
+
+.textArea:focus {
+    border: none;
+    box-shadow: none !important;
+}

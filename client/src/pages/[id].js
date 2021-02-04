@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "redaxios";
 import { CircularProgress } from "@chakra-ui/react";
 
-import Layout from "../components/Layout";
+import Layout from "../components/Layout/index";
 
 const Post = () => {
   const [enteredNote, setEnteredNote] = useState("");
@@ -15,7 +15,16 @@ const Post = () => {
 
   return (
     <Layout>
-      <pre>{enteredNote.length === 0 ? <CircularProgress /> : enteredNote}</pre>
+      <pre
+        style={{
+          color: "#FFFFFF",
+          marginLeft: "2rem",
+          overflowY: "auto",
+          height: "100vh",
+          paddingBottom: "100px",
+        }}>
+        {enteredNote.length === 0 ? <CircularProgress /> : enteredNote}
+      </pre>
     </Layout>
   );
 };

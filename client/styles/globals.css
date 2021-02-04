@@ -1,3 +1,9 @@
+body {
+    background-color: #1D1D1D !important;
+    height: 100%;
+    overflow-y: hidden;
+}
+
 @font-face {
     font-family: 'Monda';
     font-style: normal;
