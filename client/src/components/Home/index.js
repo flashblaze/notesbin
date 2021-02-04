@@ -1,40 +1,36 @@
 import { useState, useEffect, useRef } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { Button, Textarea } from "@chakra-ui/react";
-import axios from "redaxios";
-import { useRouter } from "next/router";
+import { Textarea } from "@chakra-ui/react";
 
+import { useUuidStore, useNoteStore } from "../../store/index";
 import styles from "./index.module.css";
 
 const Home = () => {
   const [value, setValue] = useState("");
-  const router = useRouter();
   const textArea = useRef();
+  const { setNote } = useNoteStore();
+  const { setUuid } = useUuidStore();
 
   useEffect(() => {
-    // console.debug(textArea);
+    setNote("");
+    setUuid("");
     textArea.current.focus();
   }, []);
 
-  const submitNote = (uuid) => {
-    axios
-      .post(`http://localhost:5001/note/${uuid}`, {
-        note: value,
-      })
-      .then(() => router.push(`/${uuid}`));
+  const handleNoteChange = (note) => {
+    setValue(note);
+    setNote(note);
   };
 
   return (
     <>
       <Textarea
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => handleNoteChange(e.target.value)}
         className={styles.textArea}
         value={value}
         ref={textArea}
         spellCheck={false}
         placeholder="Start typing..."
       />
-      <Button onClick={() => submitNote(uuidv4())}>save</Button>
     </>
   );
 };
