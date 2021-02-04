@@ -6,10 +6,11 @@
   "scripts": {
     "start": "node index.js",
     "dev": "env-cmd -f .env.development nodemon",
-    "migrate-latest": "env-cmd -f .env.development.local knex migrate:latest",
+    "migrate-latest": "env-cmd -f .env.development knex migrate:latest",
+    "migrate-rollback": "env-cmd -f .env.development knex migrate:rollback",
     "migrate-create": "knex migrate:make create-notesbin",
     "seed-create": "knex seed:make 01_notesbin",
-    "seed": "env-cmd -f .env.development.local knex seed:run",
+    "seed": "env-cmd -f .env.development knex seed:run",
     "lint": "eslint --fix .",
     "format": "prettier --write './**/*.{js,js,ts,ts,json}' --config ./.prettierrc"
   },

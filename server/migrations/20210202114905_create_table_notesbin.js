@@ -1,8 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("notesbin", (table) => {
-    table.increments();
-    table.text("note_hash");
-    table.text("note");
+    table.increments().primary();
+    table.text("note_hash").notNull();
+    table.text("note").notNull();
   });
 };
 
