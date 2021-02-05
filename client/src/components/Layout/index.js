@@ -1,9 +1,19 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
+import { useNoteStore } from "../../store/index";
 import Sidebar from "../Sidebar";
 
 const Layout = ({ children }) => {
+  const { setNote, isEditing, setIsEditing } = useNoteStore();
+
+  const handleHeader = () => {
+    if (!isEditing) {
+      setNote("");
+    }
+    setIsEditing("");
+  };
+
   return (
     <Flex direction="column">
       <Box
@@ -15,7 +25,7 @@ const Layout = ({ children }) => {
         d="flex"
         alignItems="center">
         <Link href="/">
-          <Text ml="24" cursor="pointer" fontSize="3xl" userSelect="none">
+          <Text ml="24" cursor="pointer" fontSize="3xl" userSelect="none" onClick={handleHeader}>
             notesbin
           </Text>
         </Link>

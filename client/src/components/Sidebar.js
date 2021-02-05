@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from "uuid";
 import { FiSave, FiLink, FiEdit } from "react-icons/fi";
 import axios from "redaxios";
 import { useRouter } from "next/router";
+
+import CONSTANTS from "../helpers/constants";
 import { useNoteStore, useUuidStore } from "../store/index";
 
 const Sidebar = () => {
@@ -27,13 +29,21 @@ const Sidebar = () => {
     } else {
       if (checkHash) {
         axios
-          .post(`http://localhost:5001/note/${uuid}`, {
+          .post(`${CONSTANTS.NODE_URL}/note/${uuid}`, {
             note,
           })
           .then(() => {
             setUuid(uuid);
             router.push(`/${uuid}`);
-          });
+          })
+          .catch(() =>
+            toast({
+              title: "An unexpected error occurred while adding the note",
+              status: "error",
+              duration: 3500,
+              isClosable: true,
+            })
+          );
       }
     }
   };
