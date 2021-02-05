@@ -1,5 +1,4 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { HamburgerIcon } from "@chakra-ui/icons";
 import Link from "next/link";
 
 import Sidebar from "../Sidebar";
@@ -15,9 +14,8 @@ const Layout = ({ children }) => {
         fontFamily="Monda"
         d="flex"
         alignItems="center">
-        <HamburgerIcon cursor="pointer" fontSize="3xl" ml="4" />
         <Link href="/">
-          <Text ml="8" cursor="pointer" fontSize="3xl" userSelect="none">
+          <Text ml="24" cursor="pointer" fontSize="3xl" userSelect="none">
             notesbin
           </Text>
         </Link>
