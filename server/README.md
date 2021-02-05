@@ -12,7 +12,7 @@
 
 3. Replace `knexfile.js` with your credentials
 
-4. Create `.env.development` and copy the contents from `.env.example` to it
+4. Create `.env.development` and `.env.production` and copy the contents from `.env.example` to it
 
 5. Replace the values accordingly
 
@@ -54,5 +54,3 @@ exports.seed = function (knex) {
     });
 };
 ```
-
-9. Run `npx run seed` to populate the table
