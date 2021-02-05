@@ -5,7 +5,7 @@ const { db } = require("./config");
 const app = express();
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", process.env.CORS_URLS.split(" "));
+  res.header("Access-Control-Allow-Origin", process.env.CORS_URL);
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
