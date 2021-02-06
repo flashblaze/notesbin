@@ -15,7 +15,7 @@ const SEO = ({ slug = "", description = "" }) => {
   return (
     <div>
       <Head>
-        <title>${title}</title>
+        <title>{title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta name="author" content="Neeraj Lagwankar" />
         <meta name="description" content="Share notes with anyone, anywhere" />
