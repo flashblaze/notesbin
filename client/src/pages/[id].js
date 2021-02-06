@@ -12,8 +12,10 @@ const Post = () => {
   const router = useRouter();
 
   useEffect(() => {
+    const id = router.query.id || window.location.pathname.split("/")[1];
+
     axios
-      .get(`${CONSTANTS.NODE_URL}/${router.query.id}`)
+      .get(`${CONSTANTS.NODE_URL}/${id}`)
       .then((res) => setEnteredNote(res.data.note))
       .catch(() => {
         toast({
