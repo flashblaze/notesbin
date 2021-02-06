@@ -5,6 +5,7 @@ import { Spinner, useToast } from "@chakra-ui/react";
 
 import CONSTANTS from "../helpers/constants";
 import Layout from "../components/Layout/index";
+import SEO from "./seo";
 
 const Post = () => {
   const [enteredNote, setEnteredNote] = useState("");
@@ -29,6 +30,7 @@ const Post = () => {
 
   return (
     <Layout>
+      <SEO slug="id" description="id" />
       <pre
         style={{
           color: "#FFFFFF",
