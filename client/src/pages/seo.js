@@ -37,7 +37,7 @@ const SEO = ({ slug = "", description = "" }) => {
           async
           defer
           data-domain="notesbin.xyz"
-          src="https://stats.notesbin.xyz/js/plausible.js"></script>
+          src="https://notesbin.xyz/js/plausible.js"></script>
       </Head>
     </div>
   );
