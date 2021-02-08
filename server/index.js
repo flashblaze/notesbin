@@ -1,8 +1,23 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 
 const { db } = require("./config");
 
 const app = express();
+
+if (process.env.NODE_ENV === "production") {
+  // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+  // see https://expressjs.com/en/guide/behind-proxies.html
+  app.set("trust proxy", 1);
+}
+
+const limiter = rateLimit({
+  windowMs: 1 * 1000, // 1 second
+  max: 5, // limit each IP to 5 requests per windowMs
+});
+
+//  apply to all requests
+app.use(limiter);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", process.env.CORS_URL);

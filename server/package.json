@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f .env.production node index.js",
-    "dev": "env-cmd -f .env.development nodemon",
+    "start": "env-cmd -f .env.production cross-env NODE_ENV=production node index.js",
+    "dev": "env-cmd -f .env.development cross-env NODE_ENV=development nodemon",
     "migrate-latest": "env-cmd -f .env knex migrate:latest",
     "migrate-rollback": "env-cmd -f .env knex migrate:rollback",
     "migrate-create": "knex migrate:make create-notesbin",
@@ -20,10 +20,12 @@
     "dotenv": "^8.2.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.3",
     "knex": "^0.21.17",
     "pg": "^8.5.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-prettier": "^3.3.1",
