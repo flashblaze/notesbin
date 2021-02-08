@@ -20,8 +20,9 @@ const SEO = ({ slug = "", description = "" }) => {
         <meta name="author" content="Neeraj Lagwankar" />
         <meta name="description" content="Share notes with anyone, anywhere" />
         <meta property="og:url" content={ogURL} />
+        <meta property="og:site_name" content="notesbin" />
         <meta property="og:description" content={content} />
-        <meta property="og:title" content={content} />
+        <meta property="og:title" content={title} />
         <meta property="og:image" content="https://notesbin.xyz/notesbin_og.png" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="https://twitter.com/neeraj_artx" />
