@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
         d="flex"
         alignItems="center">
         <Link href="/">
-          <Text ml="24" cursor="pointer" fontSize="3xl" userSelect="none" onClick={handleHeader}>
+          <Text ml="20" cursor="pointer" fontSize="3xl" userSelect="none" onClick={handleHeader}>
             notesbin
           </Text>
         </Link>

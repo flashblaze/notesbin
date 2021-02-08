@@ -1,4 +1,4 @@
-import { Box, Icon, useToast } from "@chakra-ui/react";
+import { Box, IconButton, Tooltip, useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { FiSave, FiLink, FiEdit } from "react-icons/fi";
 import axios from "redaxios";
@@ -79,46 +79,58 @@ const Sidebar = () => {
   return (
     <Box
       w="100%"
-      maxW="100px"
+      maxW="80px"
       height="calc(100vh - 77px)"
       bg="#101010"
       d="flex"
       alignItems="center"
       flexDir="column">
-      <Icon
-        as={FiSave}
-        fontSize="3xl"
-        mt="2"
-        color="#9F9F9F"
-        disabled={noteExists()}
-        _disabled={{ opacity: 0.5 }}
-        onClick={() => {
-          if (!noteExists()) {
-            handleSave();
-          }
-        }}
-        cursor={!noteExists() ? "pointer" : ""}
-      />
-      <Icon
-        as={FiLink}
-        fontSize="3xl"
-        mt="12"
-        color="#9F9F9F"
-        cursor={!noteExists() ? "" : "pointer"}
-        onClick={handleCopyLink}
-        disabled={!noteExists()}
-        _disabled={{ opacity: 0.5 }}
-      />
-      <Icon
-        as={FiEdit}
-        fontSize="3xl"
-        mt="12"
-        color="#9F9F9F"
-        cursor={!noteExists() ? "" : "pointer"}
-        onClick={handleEditNote}
-        disabled={!noteExists()}
-        _disabled={{ opacity: 0.5 }}
-      />
+      <Tooltip label="Save">
+        <IconButton
+          aria-label="Save Button"
+          icon={<FiSave />}
+          fontSize="3xl"
+          mt="2"
+          color="#9F9F9F"
+          isDisabled={noteExists()}
+          variant="unstyled"
+          isActive={false}
+          onClick={() => {
+            if (!noteExists()) {
+              handleSave();
+            }
+          }}
+          cursor={!noteExists() ? "pointer" : ""}
+        />
+      </Tooltip>
+      <Tooltip label="Copy Link" aria-label="Copy Link">
+        <IconButton
+          aria-label="Link icon button"
+          icon={<FiLink />}
+          fontSize="3xl"
+          mt="12"
+          color="#9F9F9F"
+          variant="unstyled"
+          isActive={false}
+          cursor={!noteExists() ? "" : "pointer"}
+          onClick={handleCopyLink}
+          isDisabled={!noteExists()}
+        />
+      </Tooltip>
+      <Tooltip label="Duplicate & Edit" aria-label="Duplicate & Edit">
+        <IconButton
+          aria-label="Duplicate & Edit icon button"
+          icon={<FiEdit />}
+          fontSize="3xl"
+          mt="12"
+          color="#9F9F9F"
+          variant="unstyled"
+          isActive={false}
+          cursor={!noteExists() ? "" : "pointer"}
+          onClick={handleEditNote}
+          isDisabled={!noteExists()}
+        />
+      </Tooltip>
     </Box>
   );
 };
