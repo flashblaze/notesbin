@@ -5,12 +5,10 @@ import { useNoteStore } from "../../store/index";
 import Sidebar from "../Sidebar";
 
 const Layout = ({ children }) => {
-  const { setNote, isEditing, setIsEditing } = useNoteStore();
+  const { setNote, setIsEditing } = useNoteStore();
 
   const handleHeader = () => {
-    if (!isEditing) {
-      setNote("");
-    }
+    setNote("");
     setIsEditing("");
   };
 
@@ -32,7 +30,7 @@ const Layout = ({ children }) => {
       </Box>
       <Flex>
         <Sidebar />
-        <Box w="100%">{children}</Box>
+        {children}
       </Flex>
     </Flex>
   );

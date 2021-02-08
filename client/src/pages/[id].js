@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "redaxios";
 import { Spinner, useToast } from "@chakra-ui/react";
 
+import { useNoteStore } from "../store/index";
 import CONSTANTS from "../helpers/constants";
 import Layout from "../components/Layout/index";
 import SEO from "./seo";
 
 const Post = () => {
-  const [enteredNote, setEnteredNote] = useState("");
+  const { note, setNote } = useNoteStore();
   const toast = useToast();
   const router = useRouter();
 
   useEffect(() => {
     const id = router.query.id || window.location.pathname.split("/")[1];
-
     axios
       .get(`${CONSTANTS.NODE_URL}/${id}`)
-      .then((res) => setEnteredNote(res.data.note))
+      .then((res) => {
+        setNote(res.data.note);
+      })
       .catch(() => {
         toast({
           title: "An unexpected error occurred while fetching the note",
@@ -34,12 +36,12 @@ const Post = () => {
       <pre
         style={{
           color: "#FFFFFF",
-          marginLeft: "2rem",
+          margin: "8px 0rem 0rem 1rem",
           overflowY: "auto",
-          height: "100vh",
-          paddingBottom: "100px",
+          height: "calc(100vh - 77px - 1rem)",
+          paddingBottom: "10px",
         }}>
-        {enteredNote.length === 0 ? <Spinner mt="2" /> : enteredNote}
+        {note.length === 0 ? <Spinner mt="2" /> : note}
       </pre>
     </Layout>
   );

@@ -1,41 +1,28 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Textarea } from "@chakra-ui/react";
 
 import { useUuidStore, useNoteStore } from "../../store/index";
 import styles from "./index.module.css";
 
 const Home = () => {
-  const [value, setValue] = useState("");
   const textArea = useRef();
-  const { setNote, note, isEditing } = useNoteStore();
+  const { setNote, note } = useNoteStore();
   const { setUuid } = useUuidStore();
 
   useEffect(() => {
-    if (isEditing) {
-      setValue(note);
-    } else {
-      setNote("");
-    }
     setUuid("");
     textArea.current.focus();
   }, []);
 
-  const handleNoteChange = (note) => {
-    setValue(note);
-    setNote(note);
-  };
-
   return (
-    <>
-      <Textarea
-        onChange={(e) => handleNoteChange(e.target.value)}
-        className={styles.textArea}
-        value={value}
-        ref={textArea}
-        spellCheck={false}
-        placeholder="Start typing..."
-      />
-    </>
+    <Textarea
+      onChange={(e) => setNote(e.target.value)}
+      className={styles.textArea}
+      value={note}
+      ref={textArea}
+      spellCheck={false}
+      placeholder="Start typing..."
+    />
   );
 };
 

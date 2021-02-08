@@ -13,8 +13,9 @@ const Sidebar = () => {
   const { note, setNote, setIsEditing } = useNoteStore();
   const toast = useToast();
 
-  const checkHash = () => {
-    return router.pathname.split("/")[1].length === 0;
+  const noteExists = () => {
+    // if path exists, then that means a note created
+    return router.pathname.split("/")[1].length !== 0;
   };
 
   const handleSave = () => {
@@ -27,7 +28,7 @@ const Sidebar = () => {
         isClosable: true,
       });
     } else {
-      if (checkHash) {
+      if (!noteExists()) {
         axios
           .post(`${CONSTANTS.NODE_URL}/note/${uuid}`, {
             note,
@@ -77,7 +78,8 @@ const Sidebar = () => {
 
   return (
     <Box
-      w="100px"
+      w="100%"
+      maxW="100px"
       height="calc(100vh - 77px)"
       bg="#101010"
       d="flex"
@@ -88,17 +90,23 @@ const Sidebar = () => {
         fontSize="3xl"
         mt="2"
         color="#9F9F9F"
-        onClick={() => handleSave()}
-        cursor="pointer"
+        disabled={noteExists()}
+        _disabled={{ opacity: 0.5 }}
+        onClick={() => {
+          if (!noteExists()) {
+            handleSave();
+          }
+        }}
+        cursor={!noteExists() ? "pointer" : ""}
       />
       <Icon
         as={FiLink}
         fontSize="3xl"
         mt="12"
         color="#9F9F9F"
-        cursor="pointer"
+        cursor={!noteExists() ? "" : "pointer"}
         onClick={handleCopyLink}
-        disabled={checkHash()}
+        disabled={!noteExists()}
         _disabled={{ opacity: 0.5 }}
       />
       <Icon
@@ -106,9 +114,9 @@ const Sidebar = () => {
         fontSize="3xl"
         mt="12"
         color="#9F9F9F"
-        cursor="pointer"
+        cursor={!noteExists() ? "" : "pointer"}
         onClick={handleEditNote}
-        disabled={checkHash()}
+        disabled={!noteExists()}
         _disabled={{ opacity: 0.5 }}
       />
     </Box>

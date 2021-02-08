@@ -1,6 +1,6 @@
 .textArea {
     color:#FFFFFF;
-    height: 91vh !important;
+    height: calc(100vh - 77px) !important;
     resize: none;
     border: none !important;
 }
