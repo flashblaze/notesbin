@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { Box, IconButton, Tooltip, useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
-import { FiSave, FiLink, FiEdit } from "react-icons/fi";
+import { FiEdit, FiInfo, FiLink, FiSave } from "react-icons/fi";
 import axios from "redaxios";
 import { useRouter } from "next/router";
 
+import About from "./About";
 import CONSTANTS from "../helpers/constants";
 import { useNoteStore, useUuidStore } from "../store/index";
 
@@ -12,6 +14,7 @@ const Sidebar = () => {
   const { setUuid } = useUuidStore();
   const { note, setNote, setIsEditing } = useNoteStore();
   const toast = useToast();
+  const [showModal, setShowModal] = useState(false);
 
   const noteExists = () => {
     // if path exists, then that means a note created
@@ -76,6 +79,16 @@ const Sidebar = () => {
     router.push("/");
   };
 
+  const iconSettings = {
+    fontSize: "3xl",
+    mt: "12",
+    color: "#9F9F9F",
+    variant: "unstyled",
+    isActive: false,
+    cursor: !noteExists() ? "" : "pointer",
+    isDisabled: !noteExists(),
+  };
+
   return (
     <Box
       w="100%"
@@ -85,7 +98,7 @@ const Sidebar = () => {
       d="flex"
       alignItems="center"
       flexDir="column">
-      <Tooltip label="Save">
+      <Tooltip label="Save" aria-label="Save Button">
         <IconButton
           aria-label="Save Button"
           icon={<FiSave />}
@@ -103,34 +116,36 @@ const Sidebar = () => {
           cursor={!noteExists() ? "pointer" : ""}
         />
       </Tooltip>
-      <Tooltip label="Copy Link" aria-label="Copy Link">
+      <Tooltip label="Copy Link" aria-label="Copy Link icon button">
         <IconButton
-          aria-label="Link icon button"
+          aria-label="Copy Link icon button"
           icon={<FiLink />}
-          fontSize="3xl"
-          mt="12"
-          color="#9F9F9F"
-          variant="unstyled"
-          isActive={false}
-          cursor={!noteExists() ? "" : "pointer"}
           onClick={handleCopyLink}
-          isDisabled={!noteExists()}
+          {...iconSettings}
         />
       </Tooltip>
-      <Tooltip label="Duplicate & Edit" aria-label="Duplicate & Edit">
+      <Tooltip label="Duplicate & Edit" aria-label="Duplicate & Edit icon button">
         <IconButton
           aria-label="Duplicate & Edit icon button"
           icon={<FiEdit />}
+          onClick={handleEditNote}
+          {...iconSettings}
+        />
+      </Tooltip>
+      <Tooltip label="About" aria-label="About icon button">
+        <IconButton
+          aria-label="About icon button"
+          icon={<FiInfo />}
           fontSize="3xl"
           mt="12"
           color="#9F9F9F"
           variant="unstyled"
           isActive={false}
-          cursor={!noteExists() ? "" : "pointer"}
-          onClick={handleEditNote}
-          isDisabled={!noteExists()}
+          cursor="pointer"
+          onClick={() => setShowModal(true)}
         />
       </Tooltip>
+      {showModal && <About onClose={() => setShowModal(false)} />}
     </Box>
   );
 };

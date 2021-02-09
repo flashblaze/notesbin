@@ -1,5 +1,5 @@
-import Layout from "../components/Layout/index";
-import Home from "../components/Home/index";
+import Layout from "../components/Layout";
+import Home from "../components/Home";
 import SEO from "./seo";
 
 const Index = () => {

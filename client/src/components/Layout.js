@@ -1,8 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
-import { useNoteStore } from "../../store/index";
-import Sidebar from "../Sidebar";
+import { useNoteStore } from "../store/index";
+import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
   const { setNote, setIsEditing } = useNoteStore();
