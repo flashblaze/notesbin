@@ -4,7 +4,7 @@ import CONSTANTS from "../helpers/constants";
 
 const SEO = ({ slug = "", description = "" }) => {
   const ogURL = `${CONSTANTS.APP_URL}/${slug}`;
-  const title = "notesbin.xyz";
+  const title = "notesbin - Open source note sharing app";
   let content = "";
   if (description.length === 0) {
     content = "Share notes with anyone, anywhere";
