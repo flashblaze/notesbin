@@ -1,3 +1,5 @@
+import Highlight from "react-highlight";
+import "highlight.js/styles/atom-one-dark.css";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "redaxios";
@@ -42,9 +44,10 @@ const Post = () => {
           overflowY: "auto",
           height: "calc(100vh - 77px - 1rem)",
           paddingBottom: "10px",
+          width: "100%",
         }}>
         {note.length !== 0 ? (
-          note
+          <Highlight className="autodetect">{note}</Highlight>
         ) : error ? (
           <span />
         ) : (

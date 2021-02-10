@@ -4,6 +4,11 @@ body {
     overflow-y: hidden;
 }
 
+/*Disable syntax highlighter background*/
+.hljs {
+    background: none !important;
+}
+
 @font-face {
     font-family: 'Monda';
     font-style: normal;

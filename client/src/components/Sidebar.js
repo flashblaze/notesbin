@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, IconButton, Tooltip, useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
-import { FiEdit, FiInfo, FiLink, FiSave } from "react-icons/fi";
+import { FiCopy, FiEdit, FiInfo, FiLink, FiSave } from "react-icons/fi";
 import axios from "redaxios";
 import { useRouter } from "next/router";
 
@@ -73,6 +73,27 @@ const Sidebar = () => {
       });
   };
 
+  const handleCopyNote = () => {
+    navigator.clipboard
+      .writeText(note)
+      .then(() => {
+        toast({
+          title: "Note copied",
+          status: "success",
+          duration: 2500,
+          isClosable: true,
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "Error while copying note",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        });
+      });
+  };
+
   const handleEditNote = () => {
     setIsEditing(true);
     setNote(note);
@@ -124,6 +145,15 @@ const Sidebar = () => {
           {...iconSettings}
         />
       </Tooltip>
+      <Tooltip label="Copy Note" aria-label="Copy Note icon button">
+        <IconButton
+          aria-label="Copy Note icon button"
+          icon={<FiCopy />}
+          onClick={handleCopyNote}
+          {...iconSettings}
+        />
+      </Tooltip>
+
       <Tooltip label="Duplicate & Edit" aria-label="Duplicate & Edit icon button">
         <IconButton
           aria-label="Duplicate & Edit icon button"

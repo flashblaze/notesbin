@@ -20,6 +20,7 @@
     "next": "^10.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-highlight": "^0.13.0",
     "react-icons": "^4.2.0",
     "redaxios": "^0.4.1",
     "uuid": "^8.3.2",
