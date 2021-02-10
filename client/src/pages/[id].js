@@ -37,10 +37,10 @@ const Post = () => {
   return (
     <Layout>
       <SEO slug="id" description="id" />
-      <pre
+      <div
         style={{
           color: "#FFFFFF",
-          margin: "8px 0rem 0rem 1rem",
+          marginLeft: "0.5rem",
           overflowY: "auto",
           height: "calc(100vh - 77px - 1rem)",
           paddingBottom: "10px",
@@ -59,7 +59,7 @@ const Post = () => {
             width={[200, 200, 500, 500]}
           />
         )}
-      </pre>
+      </div>
     </Layout>
   );
 };
