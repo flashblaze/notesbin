@@ -9,6 +9,11 @@ body {
     background: none !important;
 }
 
+pre {
+    white-space: pre-wrap;
+    word-break: keep-all
+}
+
 @font-face {
     font-family: 'Monda';
     font-style: normal;
