@@ -12,7 +12,7 @@ import { useNoteStore, useUuidStore } from "../store/index";
 const Sidebar = () => {
   const router = useRouter();
   const { setUuid } = useUuidStore();
-  const { note, setNote, setIsEditing } = useNoteStore();
+  const { note, setNote, setIsEditing, setIsSaving } = useNoteStore();
   const toast = useToast();
   const [showModal, setShowModal] = useState(false);
 
@@ -32,6 +32,7 @@ const Sidebar = () => {
       });
     } else {
       if (!noteExists()) {
+        setIsSaving(true);
         axios
           .post(`${CONSTANTS.NODE_URL}/note/${uuid}`, {
             note,

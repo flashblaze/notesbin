@@ -5,7 +5,7 @@ import { useUuidStore, useNoteStore } from "../store/index";
 
 const Home = () => {
   const textArea = useRef();
-  const { setNote, note } = useNoteStore();
+  const { setNote, note, isSaving } = useNoteStore();
   const { setUuid } = useUuidStore();
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const Home = () => {
   return (
     <Textarea
       color="#FFFFFF"
+      disabled={isSaving}
       h="calc(100vh-77px)"
       resize="none"
       border="none"

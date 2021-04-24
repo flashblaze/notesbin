@@ -11,7 +11,7 @@ import Layout from "../components/Layout";
 import SEO from "./seo";
 
 const Post = () => {
-  const { note, setNote } = useNoteStore();
+  const { note, setNote, setIsSaving } = useNoteStore();
   const [error, setError] = useState(false);
   const toast = useToast();
   const router = useRouter();
@@ -22,6 +22,7 @@ const Post = () => {
       .get(`${CONSTANTS.NODE_URL}/${id}`)
       .then((res) => {
         setNote(res.data.note);
+        setIsSaving(false);
       })
       .catch(() => {
         toast({
