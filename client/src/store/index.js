@@ -9,7 +9,9 @@ export const useNoteStore = create((set) => ({
   note: "",
   isEditing: false,
   isSaving: false,
+  doesSavedNoteExists: false,
   setNote: (note) => set(() => ({ note })),
   setIsEditing: (isEditing) => set(() => ({ isEditing })),
   setIsSaving: (isSaving) => set(() => ({ isSaving })),
+  setDoesSavedNoteExists: (doesSavedNoteExists) => set(() => ({ doesSavedNoteExists })),
 }));

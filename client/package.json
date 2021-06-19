@@ -10,29 +10,30 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.12",
-    "@chakra-ui/react": "^1.6.0",
-    "@emotion/react": "^11.1.5",
+    "@chakra-ui/icons": "^1.0.13",
+    "@chakra-ui/react": "^1.6.4",
+    "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "dayjs": "^1.10.5",
     "env-cmd": "^10.1.0",
     "focus-visible": "^5.2.0",
-    "framer-motion": "^4.1.11",
-    "next": "^10.2.0",
+    "framer-motion": "^4.1.17",
+    "next": "^11.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-highlight": "^0.14.0",
     "react-icons": "^4.2.0",
     "redaxios": "^0.4.1",
     "uuid": "^8.3.2",
-    "zustand": "^3.4.2"
+    "zustand": "^3.5.2"
   },
   "devDependencies": {
-    "eslint": "^7.25.0",
+    "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.3.1"
   }
 }

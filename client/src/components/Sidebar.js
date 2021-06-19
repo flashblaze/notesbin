@@ -1,23 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, IconButton, Tooltip, useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
-import { FiCopy, FiEdit, FiInfo, FiLink, FiSave } from "react-icons/fi";
+import { FiCopy, FiEdit, FiInfo, FiLink, FiSave, FiBookmark } from "react-icons/fi";
 import axios from "redaxios";
 import { useRouter } from "next/router";
+import dayjs from "dayjs";
 
 import About from "./About";
+import SavedNotes from "./SavedNotes";
 import CONSTANTS from "../helpers/constants";
 import { useNoteStore, useUuidStore } from "../store/index";
 
 const Sidebar = () => {
   const router = useRouter();
   const { setUuid } = useUuidStore();
-  const { note, setNote, setIsEditing, setIsSaving } = useNoteStore();
+  const {
+    note,
+    setNote,
+    doesSavedNoteExists,
+    setIsEditing,
+    setIsSaving,
+    setDoesSavedNoteExists,
+  } = useNoteStore();
   const toast = useToast();
-  const [showModal, setShowModal] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
+  const [showSavedNotes, setShowSavedNotes] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const notes = localStorage.getItem("notesbin_notes");
+      if (notes) {
+        setDoesSavedNoteExists(true);
+      } else {
+        setDoesSavedNoteExists(false);
+      }
+    }
+  }, [doesSavedNoteExists]);
 
   const noteExists = () => {
-    // if path exists, then that means a note created
+    // if path exists, then that means a note has been created
     return router.pathname.split("/")[1].length !== 0;
   };
 
@@ -38,6 +59,23 @@ const Sidebar = () => {
             note,
           })
           .then(() => {
+            const notes = localStorage.getItem("notesbin_notes");
+            if (!notes) {
+              localStorage.setItem(
+                "notesbin_notes",
+                JSON.stringify([
+                  { id: 1, note_url: window.location + uuid, date_created: dayjs().format() },
+                ])
+              );
+            } else {
+              let newNotes = JSON.parse(notes);
+              newNotes.push({
+                id: newNotes[newNotes.length - 1].id + 1,
+                note_url: window.location + uuid,
+                date_created: dayjs().format(),
+              });
+              localStorage.setItem("notesbin_notes", JSON.stringify(newNotes));
+            }
             setUuid(uuid);
             router.push(`/${uuid}`);
           })
@@ -163,6 +201,19 @@ const Sidebar = () => {
           {...iconSettings}
         />
       </Tooltip>
+      <Tooltip label="Saved notes" aria-label="Save icon button">
+        <IconButton
+          aria-label="Saved note"
+          icon={<FiBookmark />}
+          onClick={() => setShowSavedNotes(true)}
+          fontSize="3xl"
+          mt="12"
+          color="#9F9F9F"
+          variant="unstyled"
+          isDisabled={!doesSavedNoteExists}
+          cursor="pointer"
+        />
+      </Tooltip>
       <Tooltip label="About" aria-label="About icon button">
         <IconButton
           aria-label="About icon button"
@@ -173,10 +224,11 @@ const Sidebar = () => {
           variant="unstyled"
           isActive={false}
           cursor="pointer"
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowAbout(true)}
         />
       </Tooltip>
-      {showModal && <About onClose={() => setShowModal(false)} />}
+      {showAbout && <About onClose={() => setShowAbout(false)} />}
+      {showSavedNotes && <SavedNotes onClose={() => setShowSavedNotes(false)} />}
     </Box>
   );
 };
