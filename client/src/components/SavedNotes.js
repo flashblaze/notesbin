@@ -75,8 +75,9 @@ const SavedNotes = ({ onClose }) => {
         <ModalBody pb="0">
           <Table variant="simple">
             <TableCaption color="#7D8FAE" textAlign="inherit">
-              Saved notes are stored in <Text as="code">localStorage</Text> and can be accessed
-              here. You can delete individual notes by clicking on the delete icon.
+              Links of saved notes are stored in <Text as="code">localStorage</Text> and can be
+              accessed here. You can delete the links if you want but the notes will still be
+              accessible.
             </TableCaption>
             <Thead>
               <Tr>
@@ -86,24 +87,34 @@ const SavedNotes = ({ onClose }) => {
               </Tr>
             </Thead>
             <Tbody>
-              {savedNotes.map((savedNote) => (
-                <Tr key={savedNote.id}>
-                  <Td>
-                    <Link href={savedNote.note_url} isExternal d="inline-flex" alignItems="center">
-                      Link <ExternalLinkIcon mx="2px" aria-label="External link icon" />
-                    </Link>
-                  </Td>
-                  <Td>{dayjs(savedNote.date_created).format("MMMM D, YYYY h:mm A")}</Td>
-                  <Td>
-                    <Icon
-                      aria-label="Delete icon"
-                      as={FiTrash}
-                      {...iconStyles}
-                      onClick={() => deleteNote(savedNote.id)}
-                    />
-                  </Td>
-                </Tr>
-              ))}
+              {savedNotes
+                .sort((a, b) => {
+                  const dateA = new Date(a.date_created).getTime();
+                  const dateB = new Date(b.date_created).getTime();
+                  return dateA < dateB ? 1 : -1;
+                })
+                .map((savedNote) => (
+                  <Tr key={savedNote.id}>
+                    <Td>
+                      <Link
+                        href={savedNote.note_url}
+                        isExternal
+                        d="inline-flex"
+                        alignItems="center">
+                        Link <ExternalLinkIcon mx="2px" aria-label="External link icon" />
+                      </Link>
+                    </Td>
+                    <Td>{dayjs(savedNote.date_created).format("MMMM D, YYYY h:mm A")}</Td>
+                    <Td>
+                      <Icon
+                        aria-label="Delete icon"
+                        as={FiTrash}
+                        {...iconStyles}
+                        onClick={() => deleteNote(savedNote.id)}
+                      />
+                    </Td>
+                  </Tr>
+                ))}
             </Tbody>
           </Table>
         </ModalBody>

@@ -14,14 +14,8 @@ import { useNoteStore, useUuidStore } from "../store/index";
 const Sidebar = () => {
   const router = useRouter();
   const { setUuid } = useUuidStore();
-  const {
-    note,
-    setNote,
-    doesSavedNoteExists,
-    setIsEditing,
-    setIsSaving,
-    setDoesSavedNoteExists,
-  } = useNoteStore();
+  const { note, setNote, doesSavedNoteExists, setIsEditing, setIsSaving, setDoesSavedNoteExists } =
+    useNoteStore();
   const toast = useToast();
   const [showAbout, setShowAbout] = useState(false);
   const [showSavedNotes, setShowSavedNotes] = useState(false);
@@ -143,7 +137,7 @@ const Sidebar = () => {
     fontSize: "3xl",
     mt: "12",
     color: "#9F9F9F",
-    variant: "unstyled",
+    variant: "",
     isActive: false,
     cursor: !noteExists() ? "" : "pointer",
     isDisabled: !noteExists(),
@@ -151,7 +145,7 @@ const Sidebar = () => {
 
   return (
     <Box
-      w="100%"
+      p={4}
       maxW="80px"
       height="calc(100vh - 77px)"
       bg="#101010"
@@ -164,9 +158,10 @@ const Sidebar = () => {
           icon={<FiSave />}
           fontSize="3xl"
           mt="2"
+          p={0}
+          variant=""
           color="#9F9F9F"
           isDisabled={noteExists()}
-          variant="unstyled"
           isActive={false}
           onClick={() => {
             if (!noteExists()) {
@@ -209,7 +204,7 @@ const Sidebar = () => {
           fontSize="3xl"
           mt="12"
           color="#9F9F9F"
-          variant="unstyled"
+          variant=""
           isDisabled={!doesSavedNoteExists}
           cursor="pointer"
         />
@@ -221,7 +216,7 @@ const Sidebar = () => {
           fontSize="3xl"
           mt="12"
           color="#9F9F9F"
-          variant="unstyled"
+          variant=""
           isActive={false}
           cursor="pointer"
           onClick={() => setShowAbout(true)}
