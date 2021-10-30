@@ -1,7 +1,6 @@
 import Highlight from "react-highlight";
 import "highlight.js/styles/atom-one-dark.css";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useEffect } from "react";
 import axios from "redaxios";
 import { SkeletonText, useToast } from "@chakra-ui/react";
 
@@ -10,29 +9,38 @@ import CONSTANTS from "../helpers/constants";
 import Layout from "../components/Layout";
 import SEO from "./seo";
 
-const Post = () => {
-  const { note, setNote, setIsSaving } = useNoteStore();
-  const [error, setError] = useState(false);
+export const getServerSideProps = async ({ query }) => {
+  try {
+    const res = await axios.get(`${CONSTANTS.NODE_URL}/${query.id}`);
+    return {
+      props: {
+        note: res.data.note,
+      },
+    };
+  } catch (err) {
+    return {
+      props: {
+        err: true,
+      },
+    };
+  }
+};
+
+const Post = ({ note, err }) => {
+  const { setNote } = useNoteStore();
   const toast = useToast();
-  const router = useRouter();
 
   useEffect(() => {
-    const id = router.query.id || window.location.pathname.split("/")[1];
-    axios
-      .get(`${CONSTANTS.NODE_URL}/${id}`)
-      .then((res) => {
-        setNote(res.data.note);
-        setIsSaving(false);
-      })
-      .catch(() => {
-        toast({
-          title: "An unexpected error occurred while fetching the note",
-          status: "error",
-          duration: 3500,
-          isClosable: true,
-        });
-        setError(true);
+    if (note) {
+      setNote(note);
+    } else if (err) {
+      toast({
+        title: "An unexpected error occurred while fetching the note",
+        status: "error",
+        duration: 3500,
+        isClosable: true,
       });
+    }
   }, []);
 
   return (
@@ -47,9 +55,9 @@ const Post = () => {
           paddingBottom: "10px",
           width: "100%",
         }}>
-        {note.length !== 0 ? (
+        {!err && note && note.length !== 0 ? (
           <Highlight className="autodetect">{note}</Highlight>
-        ) : error ? (
+        ) : err ? (
           <span />
         ) : (
           <SkeletonText
