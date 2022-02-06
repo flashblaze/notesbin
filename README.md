@@ -1,4 +1,4 @@
-# [notesbin.xyz](https://notesbin.xyz)
+# Update: This repo is now unmainted. Please see new supabase repo: https://github.com/flashblaze/notesbin-supabase and new domain: https://notes.flashblaze.xyz/
 
 ## Background
 
